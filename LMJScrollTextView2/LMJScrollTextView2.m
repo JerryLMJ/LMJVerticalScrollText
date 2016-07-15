@@ -33,10 +33,11 @@
         _index = 0;
         
         _textDataArr = @[@"您好"];
-        _textFont = [UIFont systemFontOfSize:12];
-        _textColor = [UIColor blackColor];
+        _textFont    = [UIFont systemFontOfSize:12];
+        _textColor   = [UIColor blackColor];
+        _scrollLabel = nil;
         
-        [self createScrollLabel];
+        self.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 20);
     }
     return self;
 }
@@ -49,10 +50,9 @@
         _index = 0;
         
         _textDataArr = @[@"您好"];
-        _textFont = [UIFont systemFontOfSize:12];
-        _textColor = [UIColor blackColor];
-        
-        [self createScrollLabel];
+        _textFont    = [UIFont systemFontOfSize:12];
+        _textColor   = [UIColor blackColor];
+        _scrollLabel = nil;
     }
     return self;
 }
@@ -78,12 +78,22 @@
 
 
 - (void)startScrollBottomToTop{
+    
+    if (_scrollLabel == nil) {
+        [self createScrollLabel];
+    }
+    
     _index = 0;
     _timer = [NSTimer scheduledTimerWithTimeInterval:ScrollTime*3 target:self selector:@selector(scrollBottomToTop) userInfo:nil repeats:YES];
     [_timer fire];
 }
 
 - (void)startScrollTopToBottom{
+    
+    if (_scrollLabel == nil) {
+        [self createScrollLabel];
+    }
+    
     _index = 0;
     _timer = [NSTimer scheduledTimerWithTimeInterval:ScrollTime*3 target:self selector:@selector(scrollTopToBottom) userInfo:nil repeats:YES];
     [_timer fire];
