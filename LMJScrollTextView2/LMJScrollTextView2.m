@@ -17,11 +17,11 @@
 
 @implementation LMJScrollTextView2
 {
-    NSTimer * _timer;
-    
     UILabel * _scrollLabel;
     
     NSInteger _index;
+    
+    BOOL _needStop;
 }
 
 - (id)init{
@@ -31,6 +31,7 @@
         self.clipsToBounds = YES;
         
         _index = 0;
+        _needStop = NO;
         
         _textDataArr = @[@"您好"];
         _textFont    = [UIFont systemFontOfSize:12];
@@ -48,6 +49,7 @@
         self.clipsToBounds = YES;
         
         _index = 0;
+        _needStop = NO;
         
         _textDataArr = @[@"您好"];
         _textFont    = [UIFont systemFontOfSize:12];
@@ -84,8 +86,9 @@
     }
     
     _index = 0;
-    _timer = [NSTimer scheduledTimerWithTimeInterval:ScrollTime*3 target:self selector:@selector(scrollBottomToTop) userInfo:nil repeats:YES];
-    [_timer fire];
+    _needStop = NO;
+
+    [self scrollBottomToTop];
 }
 
 - (void)startScrollTopToBottom{
@@ -95,12 +98,12 @@
     }
     
     _index = 0;
-    _timer = [NSTimer scheduledTimerWithTimeInterval:ScrollTime*3 target:self selector:@selector(scrollTopToBottom) userInfo:nil repeats:YES];
-    [_timer fire];
+    _needStop = NO;
+    [self scrollTopToBottom];
 }
 
 - (void)stop{
-    [_timer invalidate];
+    _needStop = YES;
 }
 
 
@@ -123,9 +126,14 @@
             _scrollLabel.frame = CGRectMake(0, -self.frame.size.height, _scrollLabel.frame.size.width, _scrollLabel.frame.size.height);
             
         } completion:^(BOOL finished) {
+            
             _index ++;
             if (_index == _textDataArr.count) {
                 _index = 0;
+            }
+            
+            if (_needStop == NO) {
+                [self scrollBottomToTop];
             }
         }];
     }];
@@ -148,13 +156,17 @@
             _scrollLabel.frame = CGRectMake(0, self.frame.size.height, _scrollLabel.frame.size.width, _scrollLabel.frame.size.height);
             
         } completion:^(BOOL finished) {
+            
             _index ++;
             if (_index == _textDataArr.count) {
                 _index = 0;
             }
+            
+            if (_needStop == NO) {
+                [self scrollTopToBottom];
+            }
         }];
     }];
-    
 }
 
 @end
