@@ -11,8 +11,18 @@
 //
 
 #import <UIKit/UIKit.h>
+@class LMJScrollTextView2;
+
+@protocol LMJScrollTextView2Delegate <NSObject>
+
+@optional
+- (void)scrollTextView2:(LMJScrollTextView2 *)scrollTextView currentTextIndex:(NSInteger)index;
+
+@end
 
 @interface LMJScrollTextView2 : UIView
+
+@property (nonatomic,assign) id <LMJScrollTextView2Delegate>delegate;
 
 @property (nonatomic,copy)   NSArray * textDataArr;
 @property (nonatomic,copy)   UIFont  * textFont;

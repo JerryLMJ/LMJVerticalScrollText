@@ -110,6 +110,10 @@
 
 - (void)scrollBottomToTop{
     
+    if ([self.delegate respondsToSelector:@selector(scrollTextView2:currentTextIndex:)]) { // 代理回调
+        [self.delegate scrollTextView2:self currentTextIndex:_index];
+    }
+    
     _scrollLabel.frame = CGRectMake(0, self.frame.size.height, _scrollLabel.frame.size.width, _scrollLabel.frame.size.height);
     _scrollLabel.text  = _textDataArr[_index];
     
@@ -140,6 +144,10 @@
 }
 
 - (void)scrollTopToBottom{
+    
+    if ([self.delegate respondsToSelector:@selector(scrollTextView2:currentTextIndex:)]) { // 代理回调
+        [self.delegate scrollTextView2:self currentTextIndex:_index];
+    }
     
     _scrollLabel.frame = CGRectMake(0, -self.frame.size.height, _scrollLabel.frame.size.width, _scrollLabel.frame.size.height);
     _scrollLabel.text  = _textDataArr[_index];

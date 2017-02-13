@@ -14,7 +14,7 @@
 
 #import "LMJScrollTextView2.h"
 
-@interface ViewController ()
+@interface ViewController () <LMJScrollTextView2Delegate>
 {
     LMJScrollTextView2 * _scrollTextView;
 }
@@ -27,10 +27,11 @@
     
     
     _scrollTextView = [[LMJScrollTextView2 alloc] initWithFrame:CGRectMake(20, 100, 200, 20)];
+    _scrollTextView.delegate        = self;
     _scrollTextView.backgroundColor = [UIColor blackColor];
     _scrollTextView.textColor       = [UIColor whiteColor];
     _scrollTextView.textFont        = [UIFont systemFontOfSize:12.f];
-    _scrollTextView.textDataArr     = @[@"这是一条数据：一一一一一一",@"这是一条数据：二二二二二二",@"这是一条数据：三三三三三三",@"这是一条数据：四四四四四四",@"这是一条数据：五五五五五五",@"这是一条数据：六六六六六六"];
+    _scrollTextView.textDataArr     = @[@"这是一条数据：000000",@"这是一条数据：111111",@"这是一条数据：222222",@"这是一条数据：333333",@"这是一条数据：444444",@"这是一条数据：555555"];
     [self.view addSubview:_scrollTextView];
     
     // [_scrollTextView startScrollBottomToTop];
@@ -46,7 +47,7 @@
     UIButton * startBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [startBtn setTitle:@"开始" forState:UIControlStateNormal];
     [startBtn setBackgroundColor:[UIColor lightGrayColor]];
-    [startBtn setFrame:CGRectMake(20, 250, 90, 30)];
+    [startBtn setFrame:CGRectMake(20, 200, 90, 30)];
     [startBtn addTarget:self action:@selector(startAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:startBtn];
     
@@ -55,7 +56,7 @@
     UIButton * stopBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [stopBtn setTitle:@"停止" forState:UIControlStateNormal];
     [stopBtn setBackgroundColor:[UIColor lightGrayColor]];
-    [stopBtn setFrame:CGRectMake(20, 200, 90, 30)];
+    [stopBtn setFrame:CGRectMake(20, 250, 90, 30)];
     [stopBtn addTarget:self action:@selector(stopAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:stopBtn];
     
@@ -69,6 +70,17 @@
 - (void)stopAction{
     [_scrollTextView stop];
 }
+
+
+
+
+- (void)scrollTextView2:(LMJScrollTextView2 *)scrollTextView currentTextIndex:(NSInteger)index{
+    NSLog(@"当前是信息%ld",index);
+}
+
+
+
+
 
 
 - (void)didReceiveMemoryWarning {
