@@ -14,6 +14,8 @@
 
 #import "LMJScrollTextView2.h"
 
+#import "AViewController.h"
+
 @interface ViewController () <LMJScrollTextView2Delegate>
 {
     LMJScrollTextView2 * _scrollTextView;
@@ -60,6 +62,13 @@
     [stopBtn addTarget:self action:@selector(stopAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:stopBtn];
     
+    
+    UIButton * pushBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [pushBtn setTitle:@"next" forState:UIControlStateNormal];
+    [pushBtn setBackgroundColor:[UIColor lightGrayColor]];
+    [pushBtn setFrame:CGRectMake(20, 400, 90, 30)];
+    [pushBtn addTarget:self action:@selector(nextAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:pushBtn];
 }
 
 
@@ -72,7 +81,10 @@
 }
 
 
-
+- (void)nextAction{
+    AViewController * viewController = [[AViewController alloc] init];
+    [self presentViewController:viewController animated:YES completion:nil];
+}
 
 - (void)scrollTextView2:(LMJScrollTextView2 *)scrollTextView currentTextIndex:(NSInteger)index{
     NSLog(@"当前是信息%ld",index);

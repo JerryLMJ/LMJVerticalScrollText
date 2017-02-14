@@ -15,6 +15,7 @@
 		2A43BF511D377FF000851C5E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A43BF4F1D377FF000851C5E /* LaunchScreen.storyboard */; };
 		2A43BF5C1D377FF000851C5E /* LMJScrollTextTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A43BF5B1D377FF000851C5E /* LMJScrollTextTests.m */; };
 		2A43BF691D37803A00851C5E /* LMJScrollTextView2.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A43BF681D37803A00851C5E /* LMJScrollTextView2.m */; };
+		2A93DB811E52A22200BE66F9 /* AViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A93DB801E52A22200BE66F9 /* AViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,6 +44,8 @@
 		2A43BF5D1D377FF000851C5E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2A43BF671D37803A00851C5E /* LMJScrollTextView2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMJScrollTextView2.h; sourceTree = "<group>"; };
 		2A43BF681D37803A00851C5E /* LMJScrollTextView2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMJScrollTextView2.m; sourceTree = "<group>"; };
+		2A93DB7F1E52A22200BE66F9 /* AViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AViewController.h; sourceTree = "<group>"; };
+		2A93DB801E52A22200BE66F9 /* AViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +92,8 @@
 				2A43BF451D377FF000851C5E /* AppDelegate.m */,
 				2A43BF471D377FF000851C5E /* ViewController.h */,
 				2A43BF481D377FF000851C5E /* ViewController.m */,
+				2A93DB7F1E52A22200BE66F9 /* AViewController.h */,
+				2A93DB801E52A22200BE66F9 /* AViewController.m */,
 				2A43BF4A1D377FF000851C5E /* Main.storyboard */,
 				2A43BF4D1D377FF000851C5E /* Assets.xcassets */,
 				2A43BF4F1D377FF000851C5E /* LaunchScreen.storyboard */,
@@ -225,6 +230,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2A43BF491D377FF000851C5E /* ViewController.m in Sources */,
+				2A93DB811E52A22200BE66F9 /* AViewController.m in Sources */,
 				2A43BF461D377FF000851C5E /* AppDelegate.m in Sources */,
 				2A43BF431D377FF000851C5E /* main.m in Sources */,
 				2A43BF691D37803A00851C5E /* LMJScrollTextView2.m in Sources */,
@@ -416,6 +422,7 @@
 				2A43BF621D377FF000851C5E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2A43BF631D377FF000851C5E /* Build configuration list for PBXNativeTarget "LMJScrollTextTests" */ = {
 			isa = XCConfigurationList;
@@ -424,6 +431,7 @@
 				2A43BF651D377FF000851C5E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

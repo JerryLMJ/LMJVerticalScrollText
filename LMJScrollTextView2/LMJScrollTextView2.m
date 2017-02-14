@@ -87,8 +87,8 @@
     
     _index = 0;
     _needStop = NO;
-
     [self scrollBottomToTop];
+
 }
 
 - (void)startScrollTopToBottom{
@@ -100,6 +100,7 @@
     _index = 0;
     _needStop = NO;
     [self scrollTopToBottom];
+
 }
 
 - (void)stop{
@@ -110,71 +111,100 @@
 
 - (void)scrollBottomToTop{
     
-    if ([self.delegate respondsToSelector:@selector(scrollTextView2:currentTextIndex:)]) { // 代理回调
-        [self.delegate scrollTextView2:self currentTextIndex:_index];
-    }
-    
-    _scrollLabel.frame = CGRectMake(0, self.frame.size.height, _scrollLabel.frame.size.width, _scrollLabel.frame.size.height);
-    _scrollLabel.text  = _textDataArr[_index];
-    
-    
-    
-    [UIView animateWithDuration:ScrollTime animations:^{
+    if (![self isCurrentViewControllerVisible:[self viewController]]) {  // 处于非当前页面
         
-        _scrollLabel.frame = CGRectMake(0, 0, _scrollLabel.frame.size.width, _scrollLabel.frame.size.height);
+        [self performSelector:@selector(scrollBottomToTop) withObject:nil afterDelay:ScrollTime*3];
         
-    } completion:^(BOOL finished) {
+    }else{                                                               // 处于当前页面
         
-        [UIView animateWithDuration:ScrollTime delay:ScrollTime options:0 animations:^{
+        if ([self.delegate respondsToSelector:@selector(scrollTextView2:currentTextIndex:)]) { // 代理回调
+            [self.delegate scrollTextView2:self currentTextIndex:_index];
+        }
+        
+        _scrollLabel.frame = CGRectMake(0, self.frame.size.height, _scrollLabel.frame.size.width, _scrollLabel.frame.size.height);
+        _scrollLabel.text  = _textDataArr[_index];
+        
+        
+        [UIView animateWithDuration:ScrollTime animations:^{
             
-            _scrollLabel.frame = CGRectMake(0, -self.frame.size.height, _scrollLabel.frame.size.width, _scrollLabel.frame.size.height);
+            _scrollLabel.frame = CGRectMake(0, 0, _scrollLabel.frame.size.width, _scrollLabel.frame.size.height);
             
         } completion:^(BOOL finished) {
             
-            _index ++;
-            if (_index == _textDataArr.count) {
-                _index = 0;
-            }
-            
-            if (_needStop == NO) {
-                [self scrollBottomToTop];
-            }
+            [UIView animateWithDuration:ScrollTime delay:ScrollTime options:0 animations:^{
+                
+                _scrollLabel.frame = CGRectMake(0, -self.frame.size.height, _scrollLabel.frame.size.width, _scrollLabel.frame.size.height);
+                
+            } completion:^(BOOL finished) {
+                
+                _index ++;
+                if (_index == _textDataArr.count) {
+                    _index = 0;
+                }
+                
+                if (_needStop == NO) {
+                    [self scrollBottomToTop];
+                }
+            }];
         }];
-    }];
+    }
 }
 
 - (void)scrollTopToBottom{
     
-    if ([self.delegate respondsToSelector:@selector(scrollTextView2:currentTextIndex:)]) { // 代理回调
-        [self.delegate scrollTextView2:self currentTextIndex:_index];
-    }
-    
-    _scrollLabel.frame = CGRectMake(0, -self.frame.size.height, _scrollLabel.frame.size.width, _scrollLabel.frame.size.height);
-    _scrollLabel.text  = _textDataArr[_index];
-    
-    
-    [UIView animateWithDuration:ScrollTime animations:^{
+    if (![self isCurrentViewControllerVisible:[self viewController]]) { // 处于非当前页面
         
-        _scrollLabel.frame = CGRectMake(0, 0, _scrollLabel.frame.size.width, _scrollLabel.frame.size.height);
+        [self performSelector:@selector(scrollTopToBottom) withObject:nil afterDelay:ScrollTime*3];
         
-    } completion:^(BOOL finished) {
+    }else{                                                              // 处于当前页面
+    
+        if ([self.delegate respondsToSelector:@selector(scrollTextView2:currentTextIndex:)]) { // 代理回调
+            [self.delegate scrollTextView2:self currentTextIndex:_index];
+        }
         
-        [UIView animateWithDuration:ScrollTime delay:ScrollTime options:0 animations:^{
+        _scrollLabel.frame = CGRectMake(0, -self.frame.size.height, _scrollLabel.frame.size.width, _scrollLabel.frame.size.height);
+        _scrollLabel.text  = _textDataArr[_index];
+        
+        
+        
+        [UIView animateWithDuration:ScrollTime animations:^{
             
-            _scrollLabel.frame = CGRectMake(0, self.frame.size.height, _scrollLabel.frame.size.width, _scrollLabel.frame.size.height);
+            _scrollLabel.frame = CGRectMake(0, 0, _scrollLabel.frame.size.width, _scrollLabel.frame.size.height);
             
         } completion:^(BOOL finished) {
             
-            _index ++;
-            if (_index == _textDataArr.count) {
-                _index = 0;
-            }
-            
-            if (_needStop == NO) {
-                [self scrollTopToBottom];
-            }
+            [UIView animateWithDuration:ScrollTime delay:ScrollTime options:0 animations:^{
+                
+                _scrollLabel.frame = CGRectMake(0, self.frame.size.height, _scrollLabel.frame.size.width, _scrollLabel.frame.size.height);
+                
+            } completion:^(BOOL finished) {
+                
+                _index ++;
+                if (_index == _textDataArr.count) {
+                    _index = 0;
+                }
+                
+                if (_needStop == NO) {
+                    [self scrollTopToBottom];
+                }
+            }];
         }];
-    }];
+    }
+}
+
+
+-(BOOL)isCurrentViewControllerVisible:(UIViewController *)viewController{
+    return (viewController.isViewLoaded && viewController.view.window);
+}
+
+- (UIViewController *)viewController {
+    for (UIView * next = [self superview]; next; next = next.superview) {
+        UIResponder * nextResponder = [next nextResponder];
+        if ([nextResponder isKindOfClass:[UIViewController class]]) {
+            return (UIViewController *)nextResponder;
+        }
+    }
+    return nil;
 }
 
 @end
