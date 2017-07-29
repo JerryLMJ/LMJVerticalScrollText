@@ -194,7 +194,7 @@
 
 
 -(BOOL)isCurrentViewControllerVisible:(UIViewController *)viewController{
-    return (viewController.isViewLoaded && viewController.view.window);
+    return (viewController.isViewLoaded && viewController.view.window && [UIApplication sharedApplication].applicationState == UIApplicationStateActive);
 }
 
 - (UIViewController *)viewController {
