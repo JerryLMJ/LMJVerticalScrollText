@@ -39,28 +39,16 @@
     // [_scrollTextView startScrollBottomToTop];
     
     
+
     
     
-    
-    
-    
-    
-    
-    UIButton * startBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [startBtn setTitle:@"开始" forState:UIControlStateNormal];
-    [startBtn setBackgroundColor:[UIColor lightGrayColor]];
-    [startBtn setFrame:CGRectMake(20, 200, 90, 30)];
-    [startBtn addTarget:self action:@selector(startAction) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:startBtn];
-    
-    
-    
-    UIButton * stopBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [stopBtn setTitle:@"停止" forState:UIControlStateNormal];
-    [stopBtn setBackgroundColor:[UIColor lightGrayColor]];
-    [stopBtn setFrame:CGRectMake(20, 250, 90, 30)];
-    [stopBtn addTarget:self action:@selector(stopAction) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:stopBtn];
+    UIButton * actionBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [actionBtn setTitle:@"开始" forState:UIControlStateNormal];
+    [actionBtn setBackgroundColor:[UIColor lightGrayColor]];
+    [actionBtn setFrame:CGRectMake(20, 200, 90, 30)];
+    [actionBtn setSelected:NO];
+    [actionBtn addTarget:self action:@selector(startAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:actionBtn];
     
     
     UIButton * pushBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -73,13 +61,19 @@
 
 
 
-- (void)startAction{
-    [_scrollTextView startScrollBottomToTop];
+- (void)startAction:(UIButton *)button{
+    if (button.selected) {
+        button.selected = NO;
+        [button setTitle:@"开始" forState:UIControlStateNormal];
+        [_scrollTextView stop];
+        
+    }else{
+        button.selected = YES;
+        [button setTitle:@"停止" forState:UIControlStateNormal];
+        [_scrollTextView startScrollBottomToTop];
+    }
+    
 }
-- (void)stopAction{
-    [_scrollTextView stop];
-}
-
 
 - (void)nextAction{
     AViewController * viewController = [[AViewController alloc] init];
@@ -91,13 +85,5 @@
 }
 
 
-
-
-
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 @end
