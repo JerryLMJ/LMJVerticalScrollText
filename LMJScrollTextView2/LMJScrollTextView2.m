@@ -22,23 +22,13 @@
     NSInteger _index;
     
     BOOL _needStop;
+    bool _isRunning;
 }
 
 - (id)init{
     self = [super init];
     if (self) {
-        
-        self.clipsToBounds = YES;
-        
-        _index = 0;
-        _needStop = NO;
-        
-        _textDataArr = @[@"您好"];
-        _textFont    = [UIFont systemFontOfSize:12];
-        _textColor   = [UIColor blackColor];
-        _scrollLabel = nil;
-        
-        self.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 20);
+        self.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 20); // 设置一个初始的frame
     }
     return self;
 }
@@ -49,7 +39,8 @@
         self.clipsToBounds = YES;
         
         _index = 0;
-        _needStop = NO;
+        _needStop  = NO;
+        _isRunning = NO;
         
         _textDataArr = @[@"您好"];
         _textFont    = [UIFont systemFontOfSize:12];
@@ -81,26 +72,24 @@
 
 - (void)startScrollBottomToTop{
     
-    if (_scrollLabel == nil) {
-        [self createScrollLabel];
-    }
+    if (_isRunning) return;
+    if (_scrollLabel == nil) [self createScrollLabel];
     
-    _index = 0;
-    _needStop = NO;
+    _index     = 0;
+    _needStop  = NO;
+    _isRunning = YES;
     [self scrollBottomToTop];
-
 }
 
 - (void)startScrollTopToBottom{
     
-    if (_scrollLabel == nil) {
-        [self createScrollLabel];
-    }
+    if (_isRunning) return;
+    if (_scrollLabel == nil) [self createScrollLabel];
     
-    _index = 0;
-    _needStop = NO;
+    _index     = 0;
+    _needStop  = NO;
+    _isRunning = YES;
     [self scrollTopToBottom];
-
 }
 
 - (void)stop{
@@ -144,6 +133,8 @@
                 
                 if (_needStop == NO) {
                     [self scrollBottomToTop];
+                }else{
+                    _isRunning = NO;
                 }
             }];
         }];
@@ -186,6 +177,8 @@
                 
                 if (_needStop == NO) {
                     [self scrollTopToBottom];
+                }else{
+                    _isRunning = NO;
                 }
             }];
         }];
