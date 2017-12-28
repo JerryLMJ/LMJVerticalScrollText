@@ -10,35 +10,86 @@
 //  iOS开发者公会-议事区  QQ群号：413102158
 //
 
-
 #import "LMJScrollTextView2.h"
 
-#define ScrollTime 1.f
+@interface UIView (LMJScrollTextView2Extension)
+
+@property (nonatomic) CGFloat lmj_top;
+@property (nonatomic) CGFloat lmj_right;
+@property (nonatomic) CGFloat lmj_bottom;
+@property (nonatomic) CGFloat lmj_left;
+@property (nonatomic) CGFloat lmj_width;
+@property (nonatomic) CGFloat lmj_height;
+
+@end
+
+@implementation UIView (LMJScrollTextView2Extension)
+// getter
+- (CGFloat)lmj_top{
+    return self.frame.origin.y;
+}
+- (CGFloat)lmj_right{
+    return self.frame.origin.x + self.frame.size.width;
+}
+- (CGFloat)lmj_bottom{
+    return self.frame.origin.y + self.frame.size.height;
+}
+- (CGFloat)lmj_left{
+    return self.frame.origin.x;
+}
+- (CGFloat)lmj_width{
+    return self.frame.size.width;
+}
+- (CGFloat)lmj_height{
+    return self.frame.size.height;
+}
+// setter
+- (void)setLmj_top:(CGFloat)lmj_top{
+    self.frame = CGRectMake(self.lmj_left, lmj_top, self.lmj_width, self.lmj_height);
+}
+- (void)setLmj_right:(CGFloat)lmj_right{
+    self.frame = CGRectMake(lmj_right -self.lmj_width, self.lmj_top, self.lmj_width, self.lmj_height);
+}
+- (void)setLmj_bottom:(CGFloat)lmj_bottom{
+    self.frame = CGRectMake(self.lmj_left, lmj_bottom-self.lmj_height, self.lmj_width, self.lmj_height);
+}
+- (void)setLmj_left:(CGFloat)lmj_left{
+    self.frame = CGRectMake(lmj_left, self.lmj_top, self.lmj_width, self.lmj_height);
+}
+- (void)setLmj_width:(CGFloat)lmj_width{
+    self.frame = CGRectMake(self.lmj_left, self.lmj_top, lmj_width, self.lmj_height);
+}
+- (void)setLmj_height:(CGFloat)lmj_height{
+    self.frame = CGRectMake(self.lmj_left, self.lmj_top, self.lmj_width, lmj_height);
+}
+@end
+
+
+
+
+
+#define ScrollItemTime 1.f
+#define DelayCallTime  3.f
 
 @implementation LMJScrollTextView2
 {
-    UILabel * _scrollLabel;
+    UITapGestureRecognizer * _tapGesture;
+    
+    UILabel * _currentScrollLabel;
+    UILabel * _standbyScrollLabel;
     
     NSInteger _index;
     
     BOOL _needStop;
+    BOOL _isRunning;
+    
+    BOOL _isHaveSpace;
 }
-
+#pragma mark - Init
 - (id)init{
     self = [super init];
     if (self) {
-        
-        self.clipsToBounds = YES;
-        
-        _index = 0;
-        _needStop = NO;
-        
-        _textDataArr = @[@"您好"];
-        _textFont    = [UIFont systemFontOfSize:12];
-        _textColor   = [UIColor blackColor];
-        _scrollLabel = nil;
-        
-        self.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 20);
+        self.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 20); // 设置一个初始的frame
     }
     return self;
 }
@@ -49,152 +100,254 @@
         self.clipsToBounds = YES;
         
         _index = 0;
-        _needStop = NO;
         
-        _textDataArr = @[@"您好"];
-        _textFont    = [UIFont systemFontOfSize:12];
-        _textColor   = [UIColor blackColor];
-        _scrollLabel = nil;
+        _needStop  = NO;
+        _isRunning = NO;
+        
+        _isHaveSpace = NO;
+        
+        _textDataArr   = @[@"您好"];
+        _textFont      = [UIFont systemFontOfSize:12];
+        _textColor     = [UIColor blackColor];
+        _textAlignment = NSTextAlignmentLeft;
+        
+        _currentScrollLabel = nil;
+        _standbyScrollLabel = nil;
+        
+        _tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickAction)];
+        [self addGestureRecognizer:_tapGesture];
+        
+        _touchEnable = YES;
     }
     return self;
 }
+- (void)clickAction{
+    if ([self isCurrentViewControllerVisible:[self viewController]] && self.delegate && [self.delegate respondsToSelector:@selector(scrollTextView2:clickIndex:content:)]) {
+        [self.delegate scrollTextView2:self clickIndex:_index content:[_textDataArr[_index] copy]];
+    }
+}
 
+#pragma mark - Set
 - (void)setTextFont:(UIFont *)textFont{
     _textFont = textFont;
-    _scrollLabel.font = textFont;
+    _currentScrollLabel.font = textFont;
+    _standbyScrollLabel.font = textFont;
 }
 - (void)setTextColor:(UIColor *)textColor{
     _textColor = textColor;
-    _scrollLabel.textColor = textColor;
+    _currentScrollLabel.textColor = textColor;
+    _standbyScrollLabel.textColor = textColor;
+}
+- (void)setTextAlignment:(NSTextAlignment)textAlignment{
+    _textAlignment = textAlignment;
+    _currentScrollLabel.textAlignment = textAlignment;
+    _standbyScrollLabel.textAlignment = textAlignment;
 }
 
-
-- (void)createScrollLabel{
-    _scrollLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, self.frame.size.height, self.frame.size.width, self.frame.size.height)];
-    _scrollLabel.text          = @"";
-    _scrollLabel.textAlignment = NSTextAlignmentCenter;
-    _scrollLabel.textColor     = _textColor;
-    _scrollLabel.font          = _textFont;
-    [self addSubview:_scrollLabel];
-}
-
-
-- (void)startScrollBottomToTop{
-    
-    if (_scrollLabel == nil) {
-        [self createScrollLabel];
+- (void)setTouchEnable:(BOOL)touchEnable{
+    _touchEnable = touchEnable;
+    if (_touchEnable) {
+        if (!_tapGesture) {
+            _tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickAction)];
+            [self addGestureRecognizer:_tapGesture];
+        }
+    }else{
+        if (_tapGesture) {
+            [self removeGestureRecognizer:_tapGesture];
+        }
+        _tapGesture = nil;
     }
-    
-    _index = 0;
-    _needStop = NO;
-    [self scrollBottomToTop];
-
 }
 
-- (void)startScrollTopToBottom{
-    
-    if (_scrollLabel == nil) {
-        [self createScrollLabel];
+#pragma mark - Start
+- (void)startScrollBottomToTopWithSpace{
+    [self stop];
+    if (_isRunning) {
+        [self performSelector:@selector(startScrollBottomToTopWithSpace) withObject:nil afterDelay:DelayCallTime];
+        return;
     }
-    
-    _index = 0;
-    _needStop = NO;
-    [self scrollTopToBottom];
-
+    _isHaveSpace = YES;
+    [self resetStateToEmpty];
+    [self createScrollLabelNeedStandbyLabel:NO];
+    [self scrollWithSpaceByDirection:@(1)];
 }
 
+- (void)startScrollTopToBottomWithSpace{
+    [self stop];
+    if (_isRunning) {
+        [self performSelector:@selector(startScrollTopToBottomWithSpace) withObject:nil afterDelay:DelayCallTime];
+        return;
+    }
+    _isHaveSpace = YES;
+    [self resetStateToEmpty];
+    [self createScrollLabelNeedStandbyLabel:NO];
+    [self scrollWithSpaceByDirection:@(-1)];
+}
+
+- (void)startScrollBottomToTopWithNoSpace{
+    [self stop];
+    if (_isRunning) {
+        [self performSelector:@selector(startScrollBottomToTopWithNoSpace) withObject:nil afterDelay:DelayCallTime];
+        return;
+    }
+    _isHaveSpace = NO;
+    [self resetStateToEmpty];
+    [self createScrollLabelNeedStandbyLabel:YES];
+    [self scrollWithNoSpaceByDirection:@(1)];
+}
+- (void)startScrollTopToBottomWithNoSpace{
+    [self stop];
+    if (_isRunning) {
+        [self performSelector:@selector(startScrollTopToBottomWithNoSpace) withObject:nil afterDelay:DelayCallTime];
+        return;
+    }
+    _isHaveSpace = NO;
+    [self resetStateToEmpty];
+    [self createScrollLabelNeedStandbyLabel:YES];
+    [self scrollWithNoSpaceByDirection:@(-1)];
+}
+#pragma mark - Stop
 - (void)stop{
     _needStop = YES;
 }
 
-
-
-- (void)scrollBottomToTop{
+- (void)stopToEmpty{
+    _needStop = YES;
+    [self resetStateToEmpty];
+}
+#pragma mark - Clear / Create
+- (void)resetStateToEmpty{
+    if (_currentScrollLabel) {
+        [_currentScrollLabel removeFromSuperview];
+        _currentScrollLabel = nil;
+    }
+    if (_standbyScrollLabel) {
+        [_standbyScrollLabel removeFromSuperview];
+        _standbyScrollLabel = nil;
+    }
     
-    if (![self isCurrentViewControllerVisible:[self viewController]]) {  // 处于非当前页面
+    _index = 0;
+    _needStop  = NO;
+}
+
+
+- (void)createScrollLabelNeedStandbyLabel:(BOOL)isNeed{
+    _currentScrollLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
+    _currentScrollLabel.text                   = @"";
+    _currentScrollLabel.textAlignment          = _textAlignment;
+    _currentScrollLabel.textColor              = _textColor;
+    _currentScrollLabel.font                   = _textFont;
+    _currentScrollLabel.userInteractionEnabled = YES;
+    [self addSubview:_currentScrollLabel];
+    
+    if (isNeed) {
+        _standbyScrollLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, -100, self.frame.size.width, self.frame.size.height)];
+        _standbyScrollLabel.text                   = @"";
+        _standbyScrollLabel.textAlignment          = _textAlignment;
+        _standbyScrollLabel.textColor              = _textColor;
+        _standbyScrollLabel.font                   = _textFont;
+        _standbyScrollLabel.userInteractionEnabled = YES;
+        [self addSubview:_standbyScrollLabel];
+    }
+}
+
+
+#pragma mark - Scroll Action
+- (void)scrollWithNoSpaceByDirection:(NSNumber *)direction{
+    // 处于非当前页面，延迟尝试
+    if (![self isCurrentViewControllerVisible:[self viewController]]) {
+        [self performSelector:@selector(scrollWithNoSpaceByDirection:) withObject:direction afterDelay:DelayCallTime];
         
-        [self performSelector:@selector(scrollBottomToTop) withObject:nil afterDelay:ScrollTime*3];
         
-    }else{                                                               // 处于当前页面
+    // 处于当前页面
+    }else{
+        _isRunning = YES;
         
-        if ([self.delegate respondsToSelector:@selector(scrollTextView2:currentTextIndex:)]) { // 代理回调
-            [self.delegate scrollTextView2:self currentTextIndex:_index];
-        }
+        _currentScrollLabel.text  = _textDataArr[_index];
+        _standbyScrollLabel.text  = _textDataArr[[self nextIndex:_index]];
+        _standbyScrollLabel.frame = CGRectMake(0, self.lmj_height*direction.integerValue, _standbyScrollLabel.lmj_width, _standbyScrollLabel.lmj_height);
         
-        _scrollLabel.frame = CGRectMake(0, self.frame.size.height, _scrollLabel.frame.size.width, _scrollLabel.frame.size.height);
-        _scrollLabel.text  = _textDataArr[_index];
+        _index = [self nextIndex:_index];
         
-        
-        [UIView animateWithDuration:ScrollTime animations:^{
+        [UIView animateWithDuration:ScrollItemTime animations:^{
             
-            _scrollLabel.frame = CGRectMake(0, 0, _scrollLabel.frame.size.width, _scrollLabel.frame.size.height);
+            _currentScrollLabel.frame = CGRectMake(0, -self.lmj_height*direction.integerValue, _currentScrollLabel.lmj_width, _currentScrollLabel.lmj_height);
+            _standbyScrollLabel.frame = CGRectMake(0, 0, _standbyScrollLabel.lmj_width, _standbyScrollLabel.lmj_height);
             
         } completion:^(BOOL finished) {
             
-            [UIView animateWithDuration:ScrollTime delay:ScrollTime options:0 animations:^{
-                
-                _scrollLabel.frame = CGRectMake(0, -self.frame.size.height, _scrollLabel.frame.size.width, _scrollLabel.frame.size.height);
+            if ([self isCurrentViewControllerVisible:[self viewController]] && self.delegate && [self.delegate respondsToSelector:@selector(scrollTextView2:currentTextIndex:)]) { // 代理回调
+                [self.delegate scrollTextView2:self currentTextIndex:_index];
+            }
+            
+            UILabel * temp = _currentScrollLabel;
+            _currentScrollLabel = _standbyScrollLabel;
+            _standbyScrollLabel = temp;
+            
+            if (_needStop == NO) {
+                [self performSelector:@selector(scrollWithNoSpaceByDirection:) withObject:direction afterDelay:ScrollItemTime];
+            }else{
+                _isRunning = NO;
+            }
+        }];
+    }
+}
+
+
+
+- (void)scrollWithSpaceByDirection:(NSNumber *)direction{
+    
+    // 处于非当前页面，延迟尝试
+    if (![self isCurrentViewControllerVisible:[self viewController]]) {
+        [self performSelector:@selector(scrollWithSpaceByDirection:) withObject:direction afterDelay:DelayCallTime];
+   
+    // 处于当前页面
+    }else{
+        _isRunning = YES;
+        
+        _currentScrollLabel.text  = _textDataArr[_index];
+        _currentScrollLabel.frame = CGRectMake(0, 0, _currentScrollLabel.lmj_width, _currentScrollLabel.lmj_height);
+        
+        [UIView animateWithDuration:ScrollItemTime animations:^{
+            _currentScrollLabel.frame = CGRectMake(0, -self.lmj_height*direction.integerValue, _currentScrollLabel.lmj_width, _currentScrollLabel.lmj_height);
+            
+        } completion:^(BOOL finished) {
+            
+            _currentScrollLabel.frame = CGRectMake(0, self.lmj_height*direction.integerValue, _currentScrollLabel.lmj_width, _currentScrollLabel.lmj_height);
+            _index = [self nextIndex:_index];
+            _currentScrollLabel.text  = _textDataArr[_index];
+            
+            if ([self isCurrentViewControllerVisible:[self viewController]] && self.delegate && [self.delegate respondsToSelector:@selector(scrollTextView2:currentTextIndex:)]) { // 代理回调
+                [self.delegate scrollTextView2:self currentTextIndex:_index];
+            }
+            
+            
+            [UIView animateWithDuration:ScrollItemTime animations:^{
+                _currentScrollLabel.frame = CGRectMake(0, 0, _currentScrollLabel.lmj_width, _currentScrollLabel.lmj_height);
                 
             } completion:^(BOOL finished) {
                 
-                _index ++;
-                if (_index == _textDataArr.count) {
-                    _index = 0;
-                }
-                
                 if (_needStop == NO) {
-                    [self scrollBottomToTop];
+                    [self performSelector:@selector(scrollWithSpaceByDirection:) withObject:direction afterDelay:ScrollItemTime];
+                }else{
+                    _isRunning = NO;
                 }
             }];
         }];
     }
 }
 
-- (void)scrollTopToBottom{
-    
-    if (![self isCurrentViewControllerVisible:[self viewController]]) { // 处于非当前页面
-        
-        [self performSelector:@selector(scrollTopToBottom) withObject:nil afterDelay:ScrollTime*3];
-        
-    }else{                                                              // 处于当前页面
-    
-        if ([self.delegate respondsToSelector:@selector(scrollTextView2:currentTextIndex:)]) { // 代理回调
-            [self.delegate scrollTextView2:self currentTextIndex:_index];
-        }
-        
-        _scrollLabel.frame = CGRectMake(0, -self.frame.size.height, _scrollLabel.frame.size.width, _scrollLabel.frame.size.height);
-        _scrollLabel.text  = _textDataArr[_index];
-        
-        
-        
-        [UIView animateWithDuration:ScrollTime animations:^{
-            
-            _scrollLabel.frame = CGRectMake(0, 0, _scrollLabel.frame.size.width, _scrollLabel.frame.size.height);
-            
-        } completion:^(BOOL finished) {
-            
-            [UIView animateWithDuration:ScrollTime delay:ScrollTime options:0 animations:^{
-                
-                _scrollLabel.frame = CGRectMake(0, self.frame.size.height, _scrollLabel.frame.size.width, _scrollLabel.frame.size.height);
-                
-            } completion:^(BOOL finished) {
-                
-                _index ++;
-                if (_index == _textDataArr.count) {
-                    _index = 0;
-                }
-                
-                if (_needStop == NO) {
-                    [self scrollTopToBottom];
-                }
-            }];
-        }];
+- (NSInteger)nextIndex:(NSInteger)index{
+    NSInteger nextIndex = index + 1;
+    if (nextIndex == _textDataArr.count) {
+        nextIndex = 0;
     }
+    return nextIndex;
 }
 
-
+#pragma mark - State Check
 -(BOOL)isCurrentViewControllerVisible:(UIViewController *)viewController{
-    return (viewController.isViewLoaded && viewController.view.window);
+    return (viewController.isViewLoaded && viewController.view.window && [UIApplication sharedApplication].applicationState == UIApplicationStateActive);
 }
 
 - (UIViewController *)viewController {
