@@ -253,6 +253,7 @@
 
 
 #pragma mark - Scroll Action
+
 - (void)scrollWithNoSpaceByDirection:(NSNumber *)direction{
     // 处于非当前页面，延迟尝试
     if (![self isCurrentViewControllerVisible:[self viewController]]) {
