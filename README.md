@@ -1,6 +1,6 @@
 # LMJScrollTextView2
 
-**2017.12.28更新（2.0.0）：**
+**2017.12.28更新（2.0.0）：**                                    
 本次更新在原有的基础上增加更多滚动方式、属性设置以及回调方法：
 1、由原来的有间隙滚动，增加到有间隙和无间隙两种滚动方式。方法分别是startScrollBottomToTopWithSpace、startScrollTopToBottomWithSpace、startScrollBottomToTopWithNoSpace、startScrollTopToBottomWithNoSpace
 2、增加了文字的对齐方式和是否可以响应点击设置
