@@ -34,9 +34,24 @@
     _scrollTextView.textColor       = [UIColor whiteColor];
     _scrollTextView.textFont        = [UIFont systemFontOfSize:12.f];
     _scrollTextView.textAlignment   = NSTextAlignmentCenter;
-    _scrollTextView.touchEnable     = NO;
-    _scrollTextView.textDataArr     = @[@"这是一条数据：000000",@"这是一条数据：111111",@"这是一条数据：222222",@"这是一条数据：333333",@"这是一条数据：444444",@"这是一条数据：555555"];
+    _scrollTextView.touchEnable     = YES;
     [self.view addSubview:_scrollTextView];
+    
+    
+    
+    NSMutableAttributedString * attrStr = [[NSMutableAttributedString alloc] initWithString:@"这是最后一条数据："];
+    NSTextAttachment *textAttachment = [[NSTextAttachment alloc] init];
+    textAttachment.image = [UIImage imageNamed:@"icon"];
+    textAttachment.bounds = CGRectMake(0, -4, 15, 15);
+    NSAttributedString *attachmentAttrStr = [NSAttributedString attributedStringWithAttachment:textAttachment];
+    [attrStr insertAttributedString:attachmentAttrStr atIndex:attrStr.length];
+
+    _scrollTextView.textDataArr = @[@"这是一条数据：000000",@"这是一条数据：111111",@"这是一条数据：222222",@"这是一条数据：333333",@"这是一条数据：444444",@"这是一条数据：555555",attrStr];
+    
+    
+    
+    
+    
     
     
     
@@ -77,6 +92,7 @@
     
     
     
+    
     UIButton * stopBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [stopBtn setTitle:@"stop" forState:UIControlStateNormal];
     [stopBtn setBackgroundColor:[UIColor lightGrayColor]];
@@ -84,6 +100,8 @@
     [stopBtn setSelected:NO];
     [stopBtn addTarget:self action:@selector(stopAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:stopBtn];
+    
+    
     
     
     
@@ -102,10 +120,13 @@
 - (void)startAction:(UIButton *)button{
     if (button.tag == 1001) {
         [_scrollTextView startScrollBottomToTopWithNoSpace];
+        
     }else if (button.tag == 1002) {
         [_scrollTextView startScrollTopToBottomWithNoSpace];
+        
     }else if (button.tag == 1003) {
         [_scrollTextView startScrollBottomToTopWithSpace];
+        
     }else if (button.tag == 1004) {
         [_scrollTextView startScrollTopToBottomWithSpace];
     }

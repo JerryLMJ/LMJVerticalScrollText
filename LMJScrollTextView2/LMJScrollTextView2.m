@@ -65,6 +65,25 @@
 @end
 
 
+@interface UILabel (LMJScrollTextView2Extension)
+
+@property (nonatomic) id lmj_text;
+
+@end
+
+@implementation UILabel (LMJScrollTextView2Extension)
+- (id)lmj_text{
+    return self.text;
+}
+- (void)setLmj_text:(id)lmj_text{
+    if ([lmj_text isKindOfClass:[NSAttributedString class]]) {
+        self.attributedText = lmj_text;
+    }else if ([lmj_text isKindOfClass:[NSString class]]) {
+        self.text = lmj_text;
+    }
+}
+@end
+
 
 
 
@@ -77,7 +96,7 @@
     
     UILabel * _currentScrollLabel;
     UILabel * _standbyScrollLabel;
-    
+
     NSInteger _index;
     
     BOOL _needStop;
@@ -106,7 +125,8 @@
         
         _isHaveSpace = NO;
         
-        _textDataArr   = @[@"您好"];
+        _textDataArr   = @[];
+        
         _textFont      = [UIFont systemFontOfSize:12];
         _textColor     = [UIColor blackColor];
         _textAlignment = NSTextAlignmentLeft;
@@ -233,7 +253,6 @@
 
 - (void)createScrollLabelNeedStandbyLabel:(BOOL)isNeed{
     _currentScrollLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
-    _currentScrollLabel.text                   = @"";
     _currentScrollLabel.textAlignment          = _textAlignment;
     _currentScrollLabel.textColor              = _textColor;
     _currentScrollLabel.font                   = _textFont;
@@ -242,7 +261,6 @@
     
     if (isNeed) {
         _standbyScrollLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, -100, self.frame.size.width, self.frame.size.height)];
-        _standbyScrollLabel.text                   = @"";
         _standbyScrollLabel.textAlignment          = _textAlignment;
         _standbyScrollLabel.textColor              = _textColor;
         _standbyScrollLabel.font                   = _textFont;
@@ -262,10 +280,15 @@
         
     // 处于当前页面
     }else{
-        _isRunning = YES;
+        if (_textDataArr.count == 0) {
+            _isRunning = NO;
+            return;
+        }else{
+            _isRunning = YES;
+        }
         
-        _currentScrollLabel.text  = _textDataArr[_index];
-        _standbyScrollLabel.text  = _textDataArr[[self nextIndex:_index]];
+        _currentScrollLabel.lmj_text  = _textDataArr[_index];
+        _standbyScrollLabel.lmj_text  = _textDataArr[[self nextIndex:_index]];
         _standbyScrollLabel.frame = CGRectMake(0, self.lmj_height*direction.integerValue, _standbyScrollLabel.lmj_width, _standbyScrollLabel.lmj_height);
         
         _index = [self nextIndex:_index];
@@ -304,9 +327,14 @@
    
     // 处于当前页面
     }else{
-        _isRunning = YES;
+        if (_textDataArr.count == 0) {
+            _isRunning = NO;
+            return;
+        }else{
+            _isRunning = YES;
+        }
         
-        _currentScrollLabel.text  = _textDataArr[_index];
+        _currentScrollLabel.lmj_text  = _textDataArr[_index];
         _currentScrollLabel.frame = CGRectMake(0, 0, _currentScrollLabel.lmj_width, _currentScrollLabel.lmj_height);
         
         [UIView animateWithDuration:ScrollItemTime animations:^{
@@ -316,7 +344,7 @@
             
             _currentScrollLabel.frame = CGRectMake(0, self.lmj_height*direction.integerValue, _currentScrollLabel.lmj_width, _currentScrollLabel.lmj_height);
             _index = [self nextIndex:_index];
-            _currentScrollLabel.text  = _textDataArr[_index];
+            _currentScrollLabel.lmj_text  = _textDataArr[_index];
             
             if ([self isCurrentViewControllerVisible:[self viewController]] && self.delegate && [self.delegate respondsToSelector:@selector(scrollTextView2:currentTextIndex:)]) { // 代理回调
                 [self.delegate scrollTextView2:self currentTextIndex:_index];
@@ -340,7 +368,7 @@
 
 - (NSInteger)nextIndex:(NSInteger)index{
     NSInteger nextIndex = index + 1;
-    if (nextIndex == _textDataArr.count) {
+    if (nextIndex >= _textDataArr.count) {
         nextIndex = 0;
     }
     return nextIndex;
