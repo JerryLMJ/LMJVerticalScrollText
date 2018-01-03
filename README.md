@@ -1,5 +1,9 @@
 # LMJScrollTextView2
 
+**2018.1.3更新（2.1.0）：**
+本次更新在数据源textDataArr中支持了NSAttributedString类型数据，使能够显示的文字类型更加丰富。
+
+
 **2017.12.28更新（2.0.0）：**                                    
 本次更新在原有的基础上增加更多滚动方式、属性设置以及回调方法：
 （1）由原来的有间隙滚动，增加到有间隙和无间隙两种滚动方式。方法分别是startScrollBottomToTopWithSpace、startScrollTopToBottomWithSpace、startScrollBottomToTopWithNoSpace、startScrollTopToBottomWithNoSpace
