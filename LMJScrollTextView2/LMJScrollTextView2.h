@@ -25,8 +25,9 @@
 
 @property (nonatomic,assign) id <LMJScrollTextView2Delegate>delegate;
 
+/* textDataArr 支持 NSString 和 NSAttributedString 类型 */
 @property (nonatomic,copy)   NSArray * textDataArr;
-/* 当textDataArr和attributedTextDataArr中同时有数据的时候，默认选择加载attributedTextDataArr中的数据 */ 
+
 
 @property (nonatomic,copy)   UIFont  * textFont;
 @property (nonatomic,copy)   UIColor * textColor;
