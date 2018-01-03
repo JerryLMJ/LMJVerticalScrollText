@@ -1,6 +1,6 @@
 # LMJScrollTextView2
 
-**2018.1.3更新（2.1.0）：**
+**2018.1.3更新（2.1.0）：**               
 本次更新在数据源textDataArr中支持了NSAttributedString类型数据，使能够显示的文字类型更加丰富。
 
 
