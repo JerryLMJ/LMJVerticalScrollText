@@ -65,6 +65,10 @@
 @end
 
 
+
+
+
+
 @interface UILabel (LMJScrollTextView2Extension)
 
 @property (nonatomic) id lmj_text;
@@ -87,8 +91,9 @@
 
 
 
-#define ScrollItemTime 1.f
-#define DelayCallTime  3.f
+
+
+
 
 @implementation LMJScrollTextView2
 {
@@ -126,6 +131,9 @@
         _isHaveSpace = NO;
         
         _textDataArr   = @[];
+        
+        _textStayTime  = 3;
+        _scrollAnimationTime = 1;
         
         _textFont      = [UIFont systemFontOfSize:12];
         _textColor     = [UIColor blackColor];
@@ -183,7 +191,7 @@
 - (void)startScrollBottomToTopWithSpace{
     [self stop];
     if (_isRunning) {
-        [self performSelector:@selector(startScrollBottomToTopWithSpace) withObject:nil afterDelay:DelayCallTime];
+        [self performSelector:@selector(startScrollBottomToTopWithSpace) withObject:nil afterDelay:0.5f];
         return;
     }
     _isHaveSpace = YES;
@@ -195,7 +203,7 @@
 - (void)startScrollTopToBottomWithSpace{
     [self stop];
     if (_isRunning) {
-        [self performSelector:@selector(startScrollTopToBottomWithSpace) withObject:nil afterDelay:DelayCallTime];
+        [self performSelector:@selector(startScrollTopToBottomWithSpace) withObject:nil afterDelay:0.5f];
         return;
     }
     _isHaveSpace = YES;
@@ -207,7 +215,7 @@
 - (void)startScrollBottomToTopWithNoSpace{
     [self stop];
     if (_isRunning) {
-        [self performSelector:@selector(startScrollBottomToTopWithNoSpace) withObject:nil afterDelay:DelayCallTime];
+        [self performSelector:@selector(startScrollBottomToTopWithNoSpace) withObject:nil afterDelay:0.5f];
         return;
     }
     _isHaveSpace = NO;
@@ -218,7 +226,7 @@
 - (void)startScrollTopToBottomWithNoSpace{
     [self stop];
     if (_isRunning) {
-        [self performSelector:@selector(startScrollTopToBottomWithNoSpace) withObject:nil afterDelay:DelayCallTime];
+        [self performSelector:@selector(startScrollTopToBottomWithNoSpace) withObject:nil afterDelay:0.5f];
         return;
     }
     _isHaveSpace = NO;
@@ -247,35 +255,32 @@
     }
     
     _index = 0;
-    _needStop  = NO;
+    _needStop = NO;
 }
 
 
 - (void)createScrollLabelNeedStandbyLabel:(BOOL)isNeed{
     _currentScrollLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
-    _currentScrollLabel.textAlignment          = _textAlignment;
-    _currentScrollLabel.textColor              = _textColor;
-    _currentScrollLabel.font                   = _textFont;
-    _currentScrollLabel.userInteractionEnabled = YES;
+    _currentScrollLabel.textAlignment = _textAlignment;
+    _currentScrollLabel.textColor     = _textColor;
+    _currentScrollLabel.font          = _textFont;
     [self addSubview:_currentScrollLabel];
     
     if (isNeed) {
         _standbyScrollLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, -100, self.frame.size.width, self.frame.size.height)];
-        _standbyScrollLabel.textAlignment          = _textAlignment;
-        _standbyScrollLabel.textColor              = _textColor;
-        _standbyScrollLabel.font                   = _textFont;
-        _standbyScrollLabel.userInteractionEnabled = YES;
+        _standbyScrollLabel.textAlignment = _textAlignment;
+        _standbyScrollLabel.textColor     = _textColor;
+        _standbyScrollLabel.font          = _textFont;
         [self addSubview:_standbyScrollLabel];
     }
 }
 
 
 #pragma mark - Scroll Action
-
 - (void)scrollWithNoSpaceByDirection:(NSNumber *)direction{
     // 处于非当前页面，延迟尝试
     if (![self isCurrentViewControllerVisible:[self viewController]]) {
-        [self performSelector:@selector(scrollWithNoSpaceByDirection:) withObject:direction afterDelay:DelayCallTime];
+        [self performSelector:@selector(scrollWithNoSpaceByDirection:) withObject:direction afterDelay:3.f];
         
         
     // 处于当前页面
@@ -291,27 +296,29 @@
         _standbyScrollLabel.lmj_text  = _textDataArr[[self nextIndex:_index]];
         _standbyScrollLabel.frame = CGRectMake(0, self.lmj_height*direction.integerValue, _standbyScrollLabel.lmj_width, _standbyScrollLabel.lmj_height);
         
-        _index = [self nextIndex:_index];
         
-        [UIView animateWithDuration:ScrollItemTime animations:^{
+        if ([self isCurrentViewControllerVisible:[self viewController]] && self.delegate && [self.delegate respondsToSelector:@selector(scrollTextView2:currentTextIndex:)]) { // 代理回调
+            [self.delegate scrollTextView2:self currentTextIndex:_index];
+        }
+        
+
+        [UIView animateWithDuration:_scrollAnimationTime delay:_textStayTime options:UIViewAnimationOptionLayoutSubviews animations:^{
             
             _currentScrollLabel.frame = CGRectMake(0, -self.lmj_height*direction.integerValue, _currentScrollLabel.lmj_width, _currentScrollLabel.lmj_height);
             _standbyScrollLabel.frame = CGRectMake(0, 0, _standbyScrollLabel.lmj_width, _standbyScrollLabel.lmj_height);
             
         } completion:^(BOOL finished) {
-            
-            if ([self isCurrentViewControllerVisible:[self viewController]] && self.delegate && [self.delegate respondsToSelector:@selector(scrollTextView2:currentTextIndex:)]) { // 代理回调
-                [self.delegate scrollTextView2:self currentTextIndex:_index];
-            }
+        
+            _index = [self nextIndex:_index];
             
             UILabel * temp = _currentScrollLabel;
             _currentScrollLabel = _standbyScrollLabel;
             _standbyScrollLabel = temp;
             
-            if (_needStop == NO) {
-                [self performSelector:@selector(scrollWithNoSpaceByDirection:) withObject:direction afterDelay:ScrollItemTime];
-            }else{
+            if (_needStop) {
                 _isRunning = NO;
+            }else{
+                [self performSelector:@selector(scrollWithNoSpaceByDirection:) withObject:direction];
             }
         }];
     }
@@ -323,7 +330,7 @@
     
     // 处于非当前页面，延迟尝试
     if (![self isCurrentViewControllerVisible:[self viewController]]) {
-        [self performSelector:@selector(scrollWithSpaceByDirection:) withObject:direction afterDelay:DelayCallTime];
+        [self performSelector:@selector(scrollWithSpaceByDirection:) withObject:direction afterDelay:3.f];
    
     // 处于当前页面
     }else{
@@ -337,7 +344,13 @@
         _currentScrollLabel.lmj_text  = _textDataArr[_index];
         _currentScrollLabel.frame = CGRectMake(0, 0, _currentScrollLabel.lmj_width, _currentScrollLabel.lmj_height);
         
-        [UIView animateWithDuration:ScrollItemTime animations:^{
+        
+        if ([self isCurrentViewControllerVisible:[self viewController]] && self.delegate && [self.delegate respondsToSelector:@selector(scrollTextView2:currentTextIndex:)]) { // 代理回调
+            [self.delegate scrollTextView2:self currentTextIndex:_index];
+        }
+        
+        
+        [UIView animateWithDuration:_scrollAnimationTime/2.f delay:_textStayTime options:UIViewAnimationOptionLayoutSubviews animations:^{
             _currentScrollLabel.frame = CGRectMake(0, -self.lmj_height*direction.integerValue, _currentScrollLabel.lmj_width, _currentScrollLabel.lmj_height);
             
         } completion:^(BOOL finished) {
@@ -346,20 +359,16 @@
             _index = [self nextIndex:_index];
             _currentScrollLabel.lmj_text  = _textDataArr[_index];
             
-            if ([self isCurrentViewControllerVisible:[self viewController]] && self.delegate && [self.delegate respondsToSelector:@selector(scrollTextView2:currentTextIndex:)]) { // 代理回调
-                [self.delegate scrollTextView2:self currentTextIndex:_index];
-            }
-            
-            
-            [UIView animateWithDuration:ScrollItemTime animations:^{
+
+            [UIView animateWithDuration:_scrollAnimationTime/2.f animations:^{
                 _currentScrollLabel.frame = CGRectMake(0, 0, _currentScrollLabel.lmj_width, _currentScrollLabel.lmj_height);
                 
             } completion:^(BOOL finished) {
                 
-                if (_needStop == NO) {
-                    [self performSelector:@selector(scrollWithSpaceByDirection:) withObject:direction afterDelay:ScrollItemTime];
-                }else{
+                if (_needStop) {
                     _isRunning = NO;
+                }else{
+                    [self performSelector:@selector(scrollWithSpaceByDirection:) withObject:direction];
                 }
             }];
         }];

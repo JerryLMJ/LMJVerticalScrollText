@@ -25,8 +25,24 @@
 
 @property (nonatomic,assign) id <LMJScrollTextView2Delegate>delegate;
 
-/* textDataArr 支持 NSString 和 NSAttributedString 类型 */
+/*
+ textDataArr 支持 NSString 和 NSAttributedString类型
+ "textDataArr" support <NSString *> and <NSAttributedString *>
+ */
 @property (nonatomic,copy)   NSArray * textDataArr;
+
+
+/*
+ 文字停留时间，默认为
+ Text stay time，
+ */
+@property (nonatomic,assign) CGFloat textStayTime;
+
+/*
+ 文字滚动动画时间
+ Text scrolling animation time.
+ */
+@property (nonatomic,assign) CGFloat scrollAnimationTime;
 
 
 @property (nonatomic,copy)   UIFont  * textFont;

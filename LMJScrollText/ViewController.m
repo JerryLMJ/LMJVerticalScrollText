@@ -29,12 +29,14 @@
     
     
     _scrollTextView = [[LMJScrollTextView2 alloc] initWithFrame:CGRectMake(20, 100, 200, 20)];
-    _scrollTextView.delegate        = self;
-    _scrollTextView.backgroundColor = [UIColor blackColor];
-    _scrollTextView.textColor       = [UIColor whiteColor];
-    _scrollTextView.textFont        = [UIFont systemFontOfSize:12.f];
-    _scrollTextView.textAlignment   = NSTextAlignmentCenter;
-    _scrollTextView.touchEnable     = YES;
+    _scrollTextView.delegate            = self;
+    _scrollTextView.textStayTime        = 2;
+    _scrollTextView.scrollAnimationTime = 1;
+    _scrollTextView.backgroundColor     = [UIColor blackColor];
+    _scrollTextView.textColor           = [UIColor whiteColor];
+    _scrollTextView.textFont            = [UIFont systemFontOfSize:12.f];
+    _scrollTextView.textAlignment       = NSTextAlignmentCenter;
+    _scrollTextView.touchEnable         = YES;
     [self.view addSubview:_scrollTextView];
     
     
