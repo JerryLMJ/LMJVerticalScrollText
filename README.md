@@ -1,7 +1,7 @@
 # LMJScrollTextView2
 **2018.5.29更新（2.2.2）：**                      
-本次更新修复了在xib或storyboard中使用时出现了多个字条的显示错误；
-优化Demo演示效果，并添加了在storyboard中使用本控件的演示。         
+本次更新修复了在xib或storyboard中使用时出现了多个字条的显示错误；                      
+优化Demo演示效果，并添加了在storyboard中使用本控件的演示。                    
 
 
 **2018.5.16更新（2.2.0）：**                      
