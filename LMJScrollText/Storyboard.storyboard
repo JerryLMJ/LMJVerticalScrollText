@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Demo Add To Xib View Controller-->
+        <scene sceneID="9pI-cn-NUe">
+            <objects>
+                <viewController storyboardIdentifier="DemoAddToXibViewController" id="6Ld-Gy-VnD" customClass="DemoAddToXibViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Zly-cZ-nvj">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" restorationIdentifier="LMJScrollTextView2" translatesAutoresizingMaskIntoConstraints="NO" id="Rd8-7p-qJd" customClass="LMJScrollTextView2">
+                                <rect key="frame" x="67" y="170" width="240" height="30"/>
+                                <color key="backgroundColor" red="0.25098039220000001" green="0.59215686270000001" blue="1" alpha="0.5" colorSpace="deviceRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="240" id="gQ2-d6-Cwr"/>
+                                    <constraint firstAttribute="height" constant="30" id="xcn-pf-viX"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Rd8-7p-qJd" firstAttribute="centerX" secondItem="Zly-cZ-nvj" secondAttribute="centerX" id="Liq-zF-IOt"/>
+                            <constraint firstItem="Rd8-7p-qJd" firstAttribute="top" secondItem="6Wt-8x-Njn" secondAttribute="top" constant="150" id="pZl-dv-NKq"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Wt-8x-Njn"/>
+                    </view>
+                    <connections>
+                        <outlet property="scrollTextView" destination="Rd8-7p-qJd" id="Kfa-Qi-JBj"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BOM-P0-rBr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="69.599999999999994" y="164.16791604197903"/>
+        </scene>
+    </scenes>
+</document>

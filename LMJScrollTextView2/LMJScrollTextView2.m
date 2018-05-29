@@ -120,35 +120,44 @@
 - (id)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
-        
-        self.clipsToBounds = YES;
-        
-        _index = 0;
-        
-        _needStop  = NO;
-        _isRunning = NO;
-        
-        _isHaveSpace = NO;
-        
-        _textDataArr   = @[];
-        
-        _textStayTime  = 3;
-        _scrollAnimationTime = 1;
-        
-        _textFont      = [UIFont systemFontOfSize:12];
-        _textColor     = [UIColor blackColor];
-        _textAlignment = NSTextAlignmentLeft;
-        
-        _currentScrollLabel = nil;
-        _standbyScrollLabel = nil;
-        
-        _tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickAction)];
-        [self addGestureRecognizer:_tapGesture];
-        
-        _touchEnable = YES;
+        [self setInitialSettings];
     }
     return self;
 }
+- (void)awakeFromNib{
+    [super awakeFromNib];
+    [self setInitialSettings];
+}
+
+- (void)setInitialSettings{
+    
+    self.clipsToBounds = YES;
+    
+    _index = 0;
+    
+    _needStop  = NO;
+    _isRunning = NO;
+    
+    _isHaveSpace = NO;
+    
+    _textDataArr   = @[];
+    
+    _textStayTime  = 3;
+    _scrollAnimationTime = 1;
+    
+    _textFont      = [UIFont systemFontOfSize:12];
+    _textColor     = [UIColor blackColor];
+    _textAlignment = NSTextAlignmentLeft;
+    
+    _currentScrollLabel = nil;
+    _standbyScrollLabel = nil;
+    
+    _tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickAction)];
+    [self addGestureRecognizer:_tapGesture];
+    
+    _touchEnable = YES;
+}
+
 - (void)clickAction{
     if ([self isCurrentViewControllerVisible:[self viewController]] && self.delegate && [self.delegate respondsToSelector:@selector(scrollTextView2:clickIndex:content:)]) {
         [self.delegate scrollTextView2:self clickIndex:_index content:[_textDataArr[_index] copy]];

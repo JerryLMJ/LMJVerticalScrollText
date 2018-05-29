@@ -14,8 +14,10 @@
 		2A43BF511D377FF000851C5E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A43BF4F1D377FF000851C5E /* LaunchScreen.storyboard */; };
 		2A43BF5C1D377FF000851C5E /* LMJScrollTextTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A43BF5B1D377FF000851C5E /* LMJScrollTextTests.m */; };
 		2ACF46FE1FF5301F007BA602 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ACF46FB1FF5301E007BA602 /* ViewController.m */; };
-		2ACF46FF1FF5301F007BA602 /* AViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ACF46FC1FF5301F007BA602 /* AViewController.m */; };
+		2ACF46FF1FF5301F007BA602 /* DemoAddToCellViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ACF46FC1FF5301F007BA602 /* DemoAddToCellViewController.m */; };
 		CE21D2581FFCA9F000CE741E /* LMJScrollTextView2.m in Sources */ = {isa = PBXBuildFile; fileRef = CE21D2561FFCA9F000CE741E /* LMJScrollTextView2.m */; };
+		E4F42D3620BD619F00E9EDDA /* DemoAddToXibViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4F42D3520BD619F00E9EDDA /* DemoAddToXibViewController.m */; };
+		E4F42D3820BD61C600E9EDDA /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4F42D3720BD61C600E9EDDA /* Storyboard.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,12 +42,15 @@
 		2A43BF571D377FF000851C5E /* LMJScrollTextTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LMJScrollTextTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A43BF5B1D377FF000851C5E /* LMJScrollTextTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LMJScrollTextTests.m; sourceTree = "<group>"; };
 		2A43BF5D1D377FF000851C5E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2ACF46FA1FF5301E007BA602 /* AViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AViewController.h; sourceTree = "<group>"; };
+		2ACF46FA1FF5301E007BA602 /* DemoAddToCellViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoAddToCellViewController.h; sourceTree = "<group>"; };
 		2ACF46FB1FF5301E007BA602 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		2ACF46FC1FF5301F007BA602 /* AViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AViewController.m; sourceTree = "<group>"; };
+		2ACF46FC1FF5301F007BA602 /* DemoAddToCellViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoAddToCellViewController.m; sourceTree = "<group>"; };
 		2ACF46FD1FF5301F007BA602 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		CE21D2561FFCA9F000CE741E /* LMJScrollTextView2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMJScrollTextView2.m; sourceTree = "<group>"; };
 		CE21D2571FFCA9F000CE741E /* LMJScrollTextView2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMJScrollTextView2.h; sourceTree = "<group>"; };
+		E4F42D3420BD619F00E9EDDA /* DemoAddToXibViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DemoAddToXibViewController.h; sourceTree = "<group>"; };
+		E4F42D3520BD619F00E9EDDA /* DemoAddToXibViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DemoAddToXibViewController.m; sourceTree = "<group>"; };
+		E4F42D3720BD61C600E9EDDA /* Storyboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,8 +97,11 @@
 				2A43BF451D377FF000851C5E /* AppDelegate.m */,
 				2ACF46FD1FF5301F007BA602 /* ViewController.h */,
 				2ACF46FB1FF5301E007BA602 /* ViewController.m */,
-				2ACF46FA1FF5301E007BA602 /* AViewController.h */,
-				2ACF46FC1FF5301F007BA602 /* AViewController.m */,
+				2ACF46FA1FF5301E007BA602 /* DemoAddToCellViewController.h */,
+				2ACF46FC1FF5301F007BA602 /* DemoAddToCellViewController.m */,
+				E4F42D3420BD619F00E9EDDA /* DemoAddToXibViewController.h */,
+				E4F42D3520BD619F00E9EDDA /* DemoAddToXibViewController.m */,
+				E4F42D3720BD61C600E9EDDA /* Storyboard.storyboard */,
 				2A43BF4A1D377FF000851C5E /* Main.storyboard */,
 				2A43BF4D1D377FF000851C5E /* Assets.xcassets */,
 				2A43BF4F1D377FF000851C5E /* LaunchScreen.storyboard */,
@@ -210,6 +218,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2A43BF511D377FF000851C5E /* LaunchScreen.storyboard in Resources */,
+				E4F42D3820BD61C600E9EDDA /* Storyboard.storyboard in Resources */,
 				2A43BF4E1D377FF000851C5E /* Assets.xcassets in Resources */,
 				2A43BF4C1D377FF000851C5E /* Main.storyboard in Resources */,
 			);
@@ -230,7 +239,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				2A43BF461D377FF000851C5E /* AppDelegate.m in Sources */,
-				2ACF46FF1FF5301F007BA602 /* AViewController.m in Sources */,
+				2ACF46FF1FF5301F007BA602 /* DemoAddToCellViewController.m in Sources */,
+				E4F42D3620BD619F00E9EDDA /* DemoAddToXibViewController.m in Sources */,
 				CE21D2581FFCA9F000CE741E /* LMJScrollTextView2.m in Sources */,
 				2ACF46FE1FF5301F007BA602 /* ViewController.m in Sources */,
 				2A43BF431D377FF000851C5E /* main.m in Sources */,

@@ -14,7 +14,8 @@
 
 #import "LMJScrollTextView2.h"
 
-#import "AViewController.h"
+#import "DemoAddToCellViewController.h"
+#import "DemoAddToXibViewController.h"
 
 @interface ViewController () <LMJScrollTextView2Delegate>
 {
@@ -28,15 +29,16 @@
     [super viewDidLoad];
     
     
-    _scrollTextView = [[LMJScrollTextView2 alloc] initWithFrame:CGRectMake(20, 100, 200, 20)];
+    _scrollTextView = [[LMJScrollTextView2 alloc] initWithFrame:CGRectMake(20, 100, 200, 30)];
     _scrollTextView.delegate            = self;
     _scrollTextView.textStayTime        = 2;
     _scrollTextView.scrollAnimationTime = 1;
-    _scrollTextView.backgroundColor     = [UIColor blackColor];
+    _scrollTextView.backgroundColor     = [UIColor colorWithRed:64/255.f green:151/255.f blue:255/255.f alpha:0.5];
     _scrollTextView.textColor           = [UIColor whiteColor];
-    _scrollTextView.textFont            = [UIFont systemFontOfSize:12.f];
+    _scrollTextView.textFont            = [UIFont boldSystemFontOfSize:15.f];
     _scrollTextView.textAlignment       = NSTextAlignmentCenter;
     _scrollTextView.touchEnable         = YES;
+    _scrollTextView.layer.cornerRadius  = 3;
     [self.view addSubview:_scrollTextView];
     
     
@@ -54,67 +56,85 @@
     
     
     
-    
-    
-    
-    UIButton * actionBtn1 = [UIButton buttonWithType:UIButtonTypeCustom];
-    [actionBtn1 setTitle:@"Bottom to Top (NoSpace)" forState:UIControlStateNormal];
-    [actionBtn1 setBackgroundColor:[UIColor lightGrayColor]];
-    [actionBtn1 setFrame:CGRectMake(20, 200, 300, 30)];
-    [actionBtn1 setTag:1001];
-    [actionBtn1 addTarget:self action:@selector(startAction:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:actionBtn1];
-    
-    
-    UIButton * actionBtn2 = [UIButton buttonWithType:UIButtonTypeCustom];
-    [actionBtn2 setTitle:@"Top to Botton (NoSpace)" forState:UIControlStateNormal];
-    [actionBtn2 setBackgroundColor:[UIColor lightGrayColor]];
-    [actionBtn2 setFrame:CGRectMake(20, 250, 300, 30)];
-    [actionBtn2 setTag:1002];
-    [actionBtn2 addTarget:self action:@selector(startAction:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:actionBtn2];
-    
-    
-    UIButton * actionBtn3 = [UIButton buttonWithType:UIButtonTypeCustom];
-    [actionBtn3 setTitle:@"Bottom to Top (Space)" forState:UIControlStateNormal];
-    [actionBtn3 setBackgroundColor:[UIColor lightGrayColor]];
-    [actionBtn3 setFrame:CGRectMake(20, 300, 300, 30)];
-    [actionBtn3 setTag:1003];
-    [actionBtn3 addTarget:self action:@selector(startAction:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:actionBtn3];
-    
-    
-    UIButton * actionBtn4 = [UIButton buttonWithType:UIButtonTypeCustom];
-    [actionBtn4 setTitle:@"Top to Botton (Space)" forState:UIControlStateNormal];
-    [actionBtn4 setBackgroundColor:[UIColor lightGrayColor]];
-    [actionBtn4 setFrame:CGRectMake(20, 350, 300, 30)];
-    [actionBtn4 setTag:1004];
-    [actionBtn4 addTarget:self action:@selector(startAction:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:actionBtn4];
-    
-    
-    
-    
     UIButton * stopBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [stopBtn setTitle:@"stop" forState:UIControlStateNormal];
-    [stopBtn setBackgroundColor:[UIColor lightGrayColor]];
-    [stopBtn setFrame:CGRectMake(20, 450, 90, 30)];
+    [stopBtn setBackgroundColor:[UIColor redColor]];
+    [stopBtn setFrame:CGRectMake(_scrollTextView.frame.origin.x +_scrollTextView.frame.size.width +20, _scrollTextView.frame.origin.y, 90, 30)];
     [stopBtn setSelected:NO];
     [stopBtn addTarget:self action:@selector(stopAction:) forControlEvents:UIControlEventTouchUpInside];
+    stopBtn.layer.cornerRadius = 3;
     [self.view addSubview:stopBtn];
     
     
     
     
     
+    UIButton * actionBtn1 = [UIButton buttonWithType:UIButtonTypeCustom];
+    [actionBtn1 setTitle:@"Bottom to Top (NoSpace)--start" forState:UIControlStateNormal];
+    [actionBtn1 setBackgroundColor:[UIColor lightGrayColor]];
+    [actionBtn1 setFrame:CGRectMake(20, 200, 300, 30)];
+    [actionBtn1 setTag:1001];
+    [actionBtn1 addTarget:self action:@selector(startAction:) forControlEvents:UIControlEventTouchUpInside];
+    actionBtn1.layer.cornerRadius = 3;
+    [self.view addSubview:actionBtn1];
     
     
-    UIButton * pushBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [pushBtn setTitle:@"NextPage" forState:UIControlStateNormal];
-    [pushBtn setBackgroundColor:[UIColor lightGrayColor]];
-    [pushBtn setFrame:CGRectMake(20, 600, 100, 30)];
-    [pushBtn addTarget:self action:@selector(nextAction) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:pushBtn];
+    UIButton * actionBtn2 = [UIButton buttonWithType:UIButtonTypeCustom];
+    [actionBtn2 setTitle:@"Top to Bottom (NoSpace)--start" forState:UIControlStateNormal];
+    [actionBtn2 setBackgroundColor:[UIColor lightGrayColor]];
+    [actionBtn2 setFrame:CGRectMake(20, 250, 300, 30)];
+    [actionBtn2 setTag:1002];
+    [actionBtn2 addTarget:self action:@selector(startAction:) forControlEvents:UIControlEventTouchUpInside];
+    actionBtn2.layer.cornerRadius = 3;
+    [self.view addSubview:actionBtn2];
+    
+    
+    UIButton * actionBtn3 = [UIButton buttonWithType:UIButtonTypeCustom];
+    [actionBtn3 setTitle:@"Bottom to Top (Space)--start" forState:UIControlStateNormal];
+    [actionBtn3 setBackgroundColor:[UIColor lightGrayColor]];
+    [actionBtn3 setFrame:CGRectMake(20, 300, 300, 30)];
+    [actionBtn3 setTag:1003];
+    [actionBtn3 addTarget:self action:@selector(startAction:) forControlEvents:UIControlEventTouchUpInside];
+    actionBtn3.layer.cornerRadius = 3;
+    [self.view addSubview:actionBtn3];
+    
+    
+    UIButton * actionBtn4 = [UIButton buttonWithType:UIButtonTypeCustom];
+    [actionBtn4 setTitle:@"Top to Bottom (Space)--start" forState:UIControlStateNormal];
+    [actionBtn4 setBackgroundColor:[UIColor lightGrayColor]];
+    [actionBtn4 setFrame:CGRectMake(20, 350, 300, 30)];
+    [actionBtn4 setTag:1004];
+    [actionBtn4 addTarget:self action:@selector(startAction:) forControlEvents:UIControlEventTouchUpInside];
+    actionBtn4.layer.cornerRadius = 3;
+    [self.view addSubview:actionBtn4];
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    UIButton * demoAddToCellPageBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [demoAddToCellPageBtn setTitle:@"DemoAddToCellPage >>>" forState:UIControlStateNormal];
+    [demoAddToCellPageBtn setBackgroundColor:[UIColor grayColor]];
+    [demoAddToCellPageBtn setFrame:CGRectMake(20, 500, 250, 30)];
+    [demoAddToCellPageBtn addTarget:self action:@selector(clickDemoAddToCellPageBtn) forControlEvents:UIControlEventTouchUpInside];
+    demoAddToCellPageBtn.layer.cornerRadius = 3;
+    [self.view addSubview:demoAddToCellPageBtn];
+    
+    
+    UIButton * demoAddToXibPageBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [demoAddToXibPageBtn setTitle:@"DemoAddToXibPage >>>" forState:UIControlStateNormal];
+    [demoAddToXibPageBtn setBackgroundColor:[UIColor grayColor]];
+    [demoAddToXibPageBtn setFrame:CGRectMake(20, 550, 250, 30)];
+    [demoAddToXibPageBtn addTarget:self action:@selector(clickDemoAddToXibPageBtn) forControlEvents:UIControlEventTouchUpInside];
+    demoAddToXibPageBtn.layer.cornerRadius = 3;
+    [self.view addSubview:demoAddToXibPageBtn];
 }
 
 
@@ -139,8 +159,12 @@
     [_scrollTextView stop];
 }
 
-- (void)nextAction{
-    AViewController * viewController = [[AViewController alloc] init];
+- (void)clickDemoAddToCellPageBtn{
+    DemoAddToCellViewController * viewController = [[DemoAddToCellViewController alloc] init];
+    [self presentViewController:viewController animated:YES completion:nil];
+}
+- (void)clickDemoAddToXibPageBtn{
+    DemoAddToXibViewController * viewController = [[UIStoryboard storyboardWithName:@"Storyboard" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"DemoAddToXibViewController"];
     [self presentViewController:viewController animated:YES completion:nil];
 }
 

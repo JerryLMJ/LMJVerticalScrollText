@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AViewController : UIViewController
+@interface DemoAddToCellViewController : UIViewController
 
 @end

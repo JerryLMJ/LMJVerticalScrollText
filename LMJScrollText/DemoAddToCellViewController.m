@@ -6,15 +6,15 @@
 //  Copyright © 2017年 iOS开发者工会. All rights reserved.
 //
 
-#import "AViewController.h"
+#import "DemoAddToCellViewController.h"
 
 #import "LMJScrollTextView2.h"
 
-@interface AViewController () <UITableViewDelegate,UITableViewDataSource,LMJScrollTextView2Delegate>
+@interface DemoAddToCellViewController () <UITableViewDelegate,UITableViewDataSource,LMJScrollTextView2Delegate>
 
 @end
 
-@implementation AViewController
+@implementation DemoAddToCellViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
