@@ -16,10 +16,10 @@
 
 
 ## Usage
- * use cocoa pod:
+ * Use cocoapods:          
 `pod install LMJVerticalScrollText`
 
-* Manual import:
+* Manual import:         
     * Drag All files in the `LMJVerticalScrollText` folder to project
     * Import the main file：`#import "LMJVerticalScrollText.h"`
 
