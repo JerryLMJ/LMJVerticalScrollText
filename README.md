@@ -10,12 +10,18 @@
 ![](https://img.shields.io/cocoapods/l/LMJVerticalScrollText.svg?style=flat)
 
 - 一个简单好用的字符串滚动控件
+       
+       
+## 效果
+无间隙从下到上循环滚动                                 
+![](https://github.com/MajorLMJ/LMJVerticalScrollText/raw/master/demo1.gif)        
+有间隙从上到下循环滚动                            
+![](https://github.com/MajorLMJ/LMJVerticalScrollText/raw/master/demo2.gif)
 
-![无间隙从下到上循环滚动](https://github.com/MajorLMJ/LMJVerticalScrollText/raw/master/demo1.gif)        
-![有间隙从上到下循环滚动](https://github.com/MajorLMJ/LMJVerticalScrollText/raw/master/demo2.gif)
 
 ## 支持哪些场景
 - UIView、UITableViewCell、Storyboard 等...
+
 
 ## 使用
 * 使用cocoapods安装：               
@@ -24,9 +30,10 @@
     * 将 `LMJVerticalScrollText` 文件拖拽到工程中
     * 导入头文件`#import "LMJVerticalScrollText.h"`
     
+
 ## 更新日志
 - **2019.5.22（3.0.0）：**            
-全新的3.0版本来啦！                 
+全新的3.0版本来啦！🎉🎉🎉           
 为更贴合控件功能，项目名称将由LMJScrollTextView2更换为LMJVerticalScrollText                     
 本次更新增加了大家一直要求的cocoapods安装，并完善了demo模块的文件结构以及全新的中英文文档                   
 - **2018.5.29（2.2.2）：**                 

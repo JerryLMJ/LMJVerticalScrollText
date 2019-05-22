@@ -11,8 +11,14 @@
 
 - A simple and easy to use string scroll control
 
-![Cycle from bottom to top without gaps](https://github.com/MajorLMJ/LMJVerticalScrollText/raw/master/demo1.gif)         
-![There are gaps that cycle from top to bottom](https://github.com/MajorLMJ/LMJVerticalScrollText/raw/master/demo2.gif)
+
+## Effect
+- Cycle from bottom to top without gaps             
+![](https://github.com/MajorLMJ/LMJVerticalScrollText/raw/master/demo1.gif)
+- There are gaps that cycle from top to bottom               
+![](https://github.com/MajorLMJ/LMJVerticalScrollText/raw/master/demo2.gif)
+
+
 
 ## Support what kinds of scenarios to use
 - UIView、UITableViewCell、Storyboard etc.
@@ -29,7 +35,7 @@
 
 ## Update log
 - **2019.5.22（3.0.0）：**               
-The new 3.0 version is here!                                
+The new 3.0 version is here! 🎉🎉🎉                               
 To better fit the control functionality, the project name will be changed from LMJScrollTextView2 to LMJVerticalScrollText                  
 This update adds the installation of cocoapods that you have been asking for, and improves the file structure of demo module as well as new Chinese and English documents                      
 - **2018.5.29（2.2.2）：**                       
