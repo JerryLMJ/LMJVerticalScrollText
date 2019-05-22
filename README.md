@@ -11,9 +11,8 @@
 
 - 一个简单好用的字符串滚动控件
 
-![](https://github.com/MajorLMJ/LMJVerticalScrollText/raw/master/demo1.gif)        
-
-![](https://github.com/MajorLMJ/LMJVerticalScrollText/raw/master/demo2.gif)
+![无间隙从下到上循环滚动](https://github.com/MajorLMJ/LMJVerticalScrollText/raw/master/demo1.gif)        
+![有间隙从上到下循环滚动](https://github.com/MajorLMJ/LMJVerticalScrollText/raw/master/demo2.gif)
 
 ## 支持哪些场景
 - UIView、UITableViewCell、Storyboard 等...
