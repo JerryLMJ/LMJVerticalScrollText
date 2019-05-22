@@ -22,25 +22,25 @@
     * 导入头文件`#import "LMJVerticalScrollText.h"`
     
 ## 更新日志
-- **2019.5.22（3.0.0）：**
-全新的3.0版本来啦！\<br>
-为更贴合控件功能，项目名称将由LMJScrollTextView2更换为LMJVerticalScrollText \<br>
-本次更新增加了大家一直要求的cocoapods安装，并完善了demo模块的文件结构以及全新的中英文文档\<br>
-- **2018.5.29（2.2.2）：** 
-本次更新修复了在xib或storyboard中使用时出现了多个字条的显示错误；\<br>
-优化Demo演示效果，并添加了在storyboard中使用本控件的演示。\<br>
-- **2018.5.16（2.2.0）：**                         
-本次更新支持了文字停留、滚动时间的设置以及修复bug：\<br>
-（1）支持设置文字停留的时间，默认为3s \<br>
-（2）支持设置文字动画单次滚动时间，默认为1s \<br>
-（3）修复文字滚动时点击无法响应 \<br>
-- **2018.1.3（2.1.0）：**               
-本次更新在数据源textDataArr中支持了NSAttributedString类型数据，使能够显示的文字类型更加丰富。
+- **2019.5.22（3.0.0）：**            
+全新的3.0版本来啦！                 
+为更贴合控件功能，项目名称将由LMJScrollTextView2更换为LMJVerticalScrollText                     
+本次更新增加了大家一直要求的cocoapods安装，并完善了demo模块的文件结构以及全新的中英文文档                   
+- **2018.5.29（2.2.2）：**                 
+本次更新修复了在xib或storyboard中使用时出现了多个字条的显示错误；                   
+优化Demo演示效果，并添加了在storyboard中使用本控件的演示。                      
+- **2018.5.16（2.2.0）：**                                   
+本次更新支持了文字停留、滚动时间的设置以及修复bug：                  
+（1）支持设置文字停留的时间，默认为3s                   
+（2）支持设置文字动画单次滚动时间，默认为1s                       
+（3）修复文字滚动时点击无法响应                 
+- **2018.1.3（2.1.0）：**                    
+本次更新在数据源textDataArr中支持了NSAttributedString类型数据，使能够显示的文字类型更加丰富。                  
 - **2017.12.28（2.0.0）：**                                    
-本次更新在原有的基础上增加更多滚动方式、属性设置以及回调方法：
-（1）由原来的有间隙滚动，增加到有间隙和无间隙两种滚动方式。方法分别是startScrollBottomToTopWithSpace、startScrollTopToBottomWithSpace、startScrollBottomToTopWithNoSpace、startScrollTopToBottomWithNoSpace
-（2）增加了文字的对齐方式和是否可以响应点击设置
-（3）增加了点击回调代理函数
+本次更新在原有的基础上增加更多滚动方式、属性设置以及回调方法：                  
+（1）由原来的有间隙滚动，增加到有间隙和无间隙两种滚动方式。方法分别是startScrollBottomToTopWithSpace、startScrollTopToBottomWithSpace、startScrollBottomToTopWithNoSpace、startScrollTopToBottomWithNoSpace                      
+（2）增加了文字的对齐方式和是否可以响应点击设置                  
+（3）增加了点击回调代理函数                     
 - **2017.8.18（1.3.5）：**                                   
 修复了反复调用startScrollBottomToTop / startScrollTopToBottom方法会产生异常效果的问题。                 
 - **2017.8.16（1.3.2）：**                                           
