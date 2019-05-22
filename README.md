@@ -13,9 +13,9 @@
        
        
 ## 效果
-无间隙从下到上循环滚动                                 
+- 无间隙从下到上循环滚动                                 
 ![](https://github.com/MajorLMJ/LMJVerticalScrollText/raw/master/demo1.gif)        
-有间隙从上到下循环滚动                            
+- 有间隙从上到下循环滚动                            
 ![](https://github.com/MajorLMJ/LMJVerticalScrollText/raw/master/demo2.gif)
 
 
