@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Demo StoryboardVC-->
+        <scene sceneID="isc-DW-uRW">
+            <objects>
+                <viewController storyboardIdentifier="Demo_StoryboardVC" id="yXs-3z-VST" customClass="Demo_StoryboardVC" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ErZ-Bd-IK9">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gga-B3-ZIj" customClass="LMJVerticalScrollText">
+                                <rect key="frame" x="87" y="194" width="240" height="30"/>
+                                <color key="backgroundColor" red="0.25098039215686274" green="0.59215686274509804" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="ZBR-LT-jiK"/>
+                                    <constraint firstAttribute="width" constant="240" id="fwC-EW-UDC"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="gga-B3-ZIj" firstAttribute="centerX" secondItem="ErZ-Bd-IK9" secondAttribute="centerX" id="9SS-9j-xPe"/>
+                            <constraint firstItem="gga-B3-ZIj" firstAttribute="top" secondItem="byc-im-cUT" secondAttribute="top" constant="150" id="jeq-Y1-JqN"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="byc-im-cUT"/>
+                    </view>
+                    <connections>
+                        <outlet property="verticalScrollText" destination="gga-B3-ZIj" id="c6k-hp-hMd"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0DL-iT-1Qi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="84" y="50"/>
+        </scene>
+    </scenes>
+</document>
