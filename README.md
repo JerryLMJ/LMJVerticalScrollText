@@ -11,7 +11,8 @@
 
 - 一个简单好用的字符串滚动控件
 
-![](https://github.com/MajorLMJ/LMJVerticalScrollText/raw/master/demo1.gif)
+![](https://github.com/MajorLMJ/LMJVerticalScrollText/raw/master/demo1.gif)        
+
 ![](https://github.com/MajorLMJ/LMJVerticalScrollText/raw/master/demo2.gif)
 
 ## 支持哪些场景

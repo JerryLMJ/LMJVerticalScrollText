@@ -11,7 +11,8 @@
 
 - A simple and easy to use string scroll control
 
-![](https://github.com/MajorLMJ/LMJVerticalScrollText/raw/master/demo1.gif)
+![](https://github.com/MajorLMJ/LMJVerticalScrollText/raw/master/demo1.gif)        
+
 ![](https://github.com/MajorLMJ/LMJVerticalScrollText/raw/master/demo2.gif)
 
 ## Support what kinds of scenarios to use
