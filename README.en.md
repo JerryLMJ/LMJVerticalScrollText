@@ -26,7 +26,7 @@
 
 ## Usage
  * Use cocoapods:          
-`pod install LMJVerticalScrollText`
+`pod 'LMJVerticalScrollText'`
 
 * Manual import:         
     * Drag All files in the `LMJVerticalScrollText` folder to project

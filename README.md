@@ -25,7 +25,7 @@
 
 ## 使用
 * 使用cocoapods安装：               
-`pod install LMJVerticalScrollText`
+`pod 'LMJVerticalScrollText'`
 * 手动导入:             
     * 将 `LMJVerticalScrollText` 文件拖拽到工程中
     * 导入头文件`#import "LMJVerticalScrollText.h"`
