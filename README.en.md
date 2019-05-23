@@ -14,9 +14,9 @@
 
 ## Effect
 - Cycle from bottom to top without gaps             
-![](https://github.com/MajorLMJ/LMJVerticalScrollText/raw/master/demo1.gif)
+![](https://github.com/JerryLMJ/LMJVerticalScrollText/raw/master/demo1.gif)
 - There are gaps that cycle from top to bottom               
-![](https://github.com/MajorLMJ/LMJVerticalScrollText/raw/master/demo2.gif)
+![](https://github.com/JerryLMJ/LMJVerticalScrollText/raw/master/demo2.gif)
 
 
 
@@ -34,6 +34,8 @@
 
 
 ## Update log
+- **2019.5.23（3.0.1）:**                           
+Fix some known problems.                         
 - **2019.5.22（3.0.0）：**               
 The new 3.0 version is here! 🎉🎉🎉                               
 To better fit the control functionality, the project name will be changed from LMJScrollTextView2 to LMJVerticalScrollText                  

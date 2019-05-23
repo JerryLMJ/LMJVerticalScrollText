@@ -14,9 +14,9 @@
        
 ## 效果
 - 无间隙从下到上循环滚动                                 
-![](https://github.com/MajorLMJ/LMJVerticalScrollText/raw/master/demo1.gif)        
+![](https://github.com/JerryLMJ/LMJVerticalScrollText/raw/master/demo1.gif)        
 - 有间隙从上到下循环滚动                            
-![](https://github.com/MajorLMJ/LMJVerticalScrollText/raw/master/demo2.gif)
+![](https://github.com/JerryLMJ/LMJVerticalScrollText/raw/master/demo2.gif)
 
 
 ## 支持哪些场景
@@ -32,6 +32,8 @@
     
 
 ## 更新日志
+- **2019.5.23（3.0.1）:**                               
+修复一些已知问题。                              
 - **2019.5.22（3.0.0）：**            
 全新的3.0版本来啦！🎉🎉🎉           
 为更贴合控件功能，项目名称将由LMJScrollTextView2更换为LMJVerticalScrollText                     
