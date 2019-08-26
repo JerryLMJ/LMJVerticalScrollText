@@ -59,7 +59,7 @@
  
 | Deleget Method | Optional | Description |
 | --- | --- | ---
-| LMJVerticalScrollTextDelegate* | --- | ---
+| *LMJVerticalScrollTextDelegate* | --- | ---
 | - verticalScrollText: currentTextIndex: | Optional | the currently displayed
 | - verticalScrollText: clickIndex: content: | Optional | click the current display content
 
