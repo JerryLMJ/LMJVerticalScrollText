@@ -58,8 +58,8 @@
 | 代理方法 | 是否必选 | 描述 |
 | --- | --- | ---
 | *LMJVerticalScrollTextDelegate* | --- | ---
-| - verticalScrollText:currentTextIndex: | 当前显示
-| - verticalScrollText:clickIndex:content: | 点击当前显示内容
+| - verticalScrollText:currentTextIndex: | 可选 |当前显示
+| - verticalScrollText:clickIndex:content: | 可选 | 点击当前显示内容
 
 
 ## 更新日志
