@@ -1,6 +1,6 @@
-简体中文 | [English](./README.en.md)
-
 ![(logo)](https://avatars2.githubusercontent.com/u/15794032?s=460&v=4)
+
+简体中文 | [English](./README.en.md)
 
 # LMJVerticalScrollText
 
@@ -30,6 +30,37 @@
     * 将 `LMJVerticalScrollText` 文件拖拽到工程中
     * 导入头文件`#import "LMJVerticalScrollText.h"`
     
+    
+## 属性及方法
+| 属性 | 描述 |
+| --- | --- 
+| delegate | 代理
+| --- | ---
+| textDataArr | 文字数据，支持<NSString *>和<NSAttributedString *>类型
+| textFont | 文字字体
+| textColor | 文字颜色
+| textAlignment | 文字对齐
+| --- | ---
+| textStayTime | 文字停留时间，默认3s
+| scrollAnimationTime | 文字滚动动画时间，默认1s
+| --- | ---
+| touchEnable | 是否能够点击，默认YES
+
+| 方法 | 描述 |
+| --- | ---
+| - startScrollBottomToTopWithSpace | 从下到上有间隙滚动
+| - startScrollTopToBottomWithSpace | 从上到下有间隙滚动
+| - startScrollBottomToTopWithNoSpace | 从下到上无间隙滚动
+| - startScrollTopToBottomWithNoSpace | 从上到下无间隙滚动
+| - stop | 停止滚动
+| - stopToEmpty | 停止滚动，并清空显示
+
+| 代理方法 | 是否必选 | 描述 |
+| --- | --- | ---
+| *LMJVerticalScrollTextDelegate* | --- | ---
+| - verticalScrollText:currentTextIndex: | 当前显示
+| - verticalScrollText:clickIndex:content: | 点击当前显示内容
+
 
 ## 更新日志
 - **2019.5.23（3.0.1）:**                               

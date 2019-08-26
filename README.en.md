@@ -1,6 +1,6 @@
-[简体中文](./README.md) | English
-
 ![(logo)](https://avatars2.githubusercontent.com/u/15794032?s=460&v=4)
+
+[简体中文](./README.md) | English
 
 # LMJVerticalScrollText
 
@@ -31,6 +31,37 @@
 * Manual import:         
     * Drag All files in the `LMJVerticalScrollText` folder to project
     * Import the main file：`#import "LMJVerticalScrollText.h"`
+    
+    
+## Properties and methods
+| Attribute | Description |
+| --- | ---
+| delegate | delegate
+| --- | ---
+| textDataArr | text data, supports <NSString *> and <NSAttributedString *>
+| textFont | text font
+| textColor | text color
+| textAlignment | text alignment
+| --- | ---
+| textStayTime | text dwell time, default 3s
+| scrollAnimationTime | text scrollAnimationTime, default 1s
+| --- | ---
+| touchEnable | whether can be clicked, default YES
+ 
+| Method | Description |
+| --- | ---
+| - startScrollBottomToTopWithSpace | scroll from bottom to top have clearance
+| - startScrollTopToBottomWithSpace | have clearance from the top to the bottom of the scroll
+| - startScrollBottomToTopWithNoSpace | no clearance from the bottom up
+| - startScrollTopToBottomWithNoSpace | no clearance from the top to the bottom of the scroll
+| - stop | to stop scrolling
+| - stopToEmpty | stops scrolling and clears the display
+ 
+| Deleget Method | Optional | Description |
+| --- | --- | ---
+| LMJVerticalScrollTextDelegate* | --- | ---
+| - verticalScrollText: currentTextIndex: | the currently displayed
+| - verticalScrollText: clickIndex: content: | click the current display content
 
 
 ## Update log
