@@ -99,6 +99,16 @@
     actionBtn4.layer.cornerRadius = 3;
     [bgView addSubview:actionBtn4];
     
+    // change button
+    UIButton * changeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [changeBtn setTitle:@"Reload Data" forState:UIControlStateNormal];
+    [changeBtn setBackgroundColor:[UIColor greenColor]];
+    [changeBtn setFrame:CGRectMake(20, 400, 300, 30)];
+    [changeBtn setTag:1005];
+    [changeBtn addTarget:self action:@selector(changeDataSource) forControlEvents:UIControlEventTouchUpInside];
+    changeBtn.layer.cornerRadius = 3;
+    [bgView addSubview:changeBtn];
+    
     
     
     // go to next page button 1
@@ -130,6 +140,10 @@
     [attrStr insertAttributedString:attachmentAttrStr atIndex:attrStr.length];
     
     return @[@"这是一条数据：000000",@"这是一条数据：111111",@"这是一条数据：222222",attrStr];
+}
+
+- (void)changeDataSource{
+    _verticalScrollText.textDataArr = @[@"AAAAAA",@"BBBBBB",@"CCCCCC",@"DDDDDD",@"EEEEEE"];
 }
 
 
